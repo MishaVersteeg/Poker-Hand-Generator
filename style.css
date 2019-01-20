@@ -1,0 +1,122 @@
+body{
+    font-family: sans-serif;
+}
+
+#content{  
+    text-align: center;
+    display: grid;
+    grid-gap: 10px;
+    max-width: 1000px;
+    min-width: 600px;
+    margin: auto auto;
+
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+.header {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    padding: 27px;
+    border: rgb(39, 44, 40) solid 1px;
+    min-width: 200px;
+ 
+}
+
+.setupButtons {
+    min-width: 200px;
+    display: grid;
+    grid-column: 3/4;
+    grid-row: 1/2;  
+    grid-row: span;
+    border: rgb(39, 44, 40) solid 1px;
+  
+}
+
+
+.setupButtons p {
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+
+    border: solid 1px rgba(39, 59, 97, 0.616)
+}
+
+.setupButtons p:hover{
+    background-color: lightgrey;
+}
+
+.table {
+    border: rgb(39, 44, 40) solid 1px;
+    grid-column: 2/4;
+    grid-row: 2/3;
+    padding: 20px;
+    min-width: 417px;
+}
+
+#holeCards{
+    margin-right: 40px;
+}
+    
+#turn{
+    margin-left: 20px;	
+}
+    
+#river{
+    margin-left: 20px;
+}
+
+#eightCard {
+    margin-left: 20px;
+}
+
+.mainButtons {
+    grid-column: 2/4;
+    grid-row: 3/4;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: rgb(39, 44, 40) solid 1px;
+    min-width: 728px;  
+}
+
+.mainButtons a{
+    border: solid 1px rgba(39, 59, 97, 0.616);
+    padding: 10px 10px;
+    margin: 10px;
+}
+
+.mainButtons a:hover {
+	background-color: lightgrey;
+}
+
+.barchart {
+    grid-column: 2/4 ;
+    max-width: auto;
+    grid-row: 4/6;
+    min-width: 100px;
+    border: rgb(39, 44, 40) solid 1px;
+}
+
+#VueEvent {
+    border: rgb(39, 44, 40) solid 1px;
+    grid-column: 1/2 ;
+    grid-row: 2/6;
+    padding-top: 60px;
+}
+
+#VueEvent p {
+    padding: 15px;
+    width: 200px;
+    margin: 10px;
+    border: solid 1px rgba(39, 59, 97, 0.616)
+}
+
+#VueEvent p:hover {
+    background-color: lightgrey;
+}
+
+#VueEvent table {
+    margin: auto auto;
+}
