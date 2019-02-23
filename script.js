@@ -1,15 +1,15 @@
 
-deck = ['Sa', 'Sb', 'Sc', 'Sd', 'Se', 'Sf', 'Sg', 'Sh', 'Si', 'Sj', 'Sk', 'Sl', 'Sm', 'Ca', 'Cb', 'Cc', 'Cd', 'Ce', 'Cf', 'Cg', 'Ch', 'Ci', 'Cj', 'Ck', 'Cl', 'Cm', 'Ha', 'Hb', 'Hc', 'Hd', 'He', 'Hf', 'Hg', 'Hh', 'Hi', 'Hj', 'Hk', 'Hl', 'Hm', 'Da', 'Db', 'Dc', 'Dd', 'De', 'Df', 'Dg', 'Dh', 'Di', 'Dj', 'Dk', 'Dl', 'Dm']
+let deck = ['Sa', 'Sb', 'Sc', 'Sd', 'Se', 'Sf', 'Sg', 'Sh', 'Si', 'Sj', 'Sk', 'Sl', 'Sm', 'Ca', 'Cb', 'Cc', 'Cd', 'Ce', 'Cf', 'Cg', 'Ch', 'Ci', 'Cj', 'Ck', 'Cl', 'Cm', 'Ha', 'Hb', 'Hc', 'Hd', 'He', 'Hf', 'Hg', 'Hh', 'Hi', 'Hj', 'Hk', 'Hl', 'Hm', 'Da', 'Db', 'Dc', 'Dd', 'De', 'Df', 'Dg', 'Dh', 'Di', 'Dj', 'Dk', 'Dl', 'Dm']
 
-holeCards = []; 
-flop = []; 
-turn = []; 
-river = []; 
-eightCard = []; 
-hand = [];
+let holeCards = []; 
+let flop = []; 
+let turn = []; 
+let river = []; 
+let eightCard = []; 
+let hand = [];
 
-eightCardOn = 'OFF'
-jortModeOn = 'OFF'
+let eightCardOn = 'OFF'
+let jortModeOn = 'OFF'
 
 // retreive and give back cards to deck array:
 
@@ -250,20 +250,20 @@ handCount = new Vue({
 
 determineHand = () => {
 
-	allCards = holeCards.concat(flop, turn, river, eightCard);
+	let allCards = holeCards.concat(flop, turn, river, eightCard);
 
-	spades = [];
-	clubs = [];
-	hearts = [];
-	diamonds = [];
+	let spades = [];
+	let clubs = [];
+	let hearts = [];
+	let diamonds = [];
 
-	cardSuit = [];
-	cardValue = [];
-	suit = [];
-	cardNumbers = [];
-	numbersUnique = [];
-	possibleStraightCards = [];
-	sameValue = [];
+	let cardSuit = [];
+	let cardValue = [];
+	let suit = [];
+	let cardNumbers = [];
+	let numbersUnique = [];
+	let possibleStraightCards = [];
+	let sameValue = [];
 
 
 	emptyArrays = () => {
