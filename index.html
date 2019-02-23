@@ -4,33 +4,27 @@
 
 <head>
   	<title>PokerGen</title>
-  	<link href="style.css" type="text/css" rel="stylesheet">
+	<link href="style.css" type="text/css" rel="stylesheet">
  	<script src="https://unpkg.com/vue"></script>
 	<script src="https://github.com/chartjs/Chart.js/releases/download/v2.7.3/Chart.js"></script>
-
 </head>
 
 
 <body>
-
 		<div id="content">
 	
 			<div class="header">
-				<H1>HandGen</H1>
+				<H1>Poker hand Generator</H1>
 			</div>
 
 			<div class="setupButtons">
-
-				
-					<p id="eightCard" onclick="eightCardOnOff()">8-card hands:
+					<p id="eightCardButton" onclick="eightCardOnOff()">8-card hands:
 						<a id="eightCardOn"> OFF</a>
 					</p>
 					
-					<p id="jortMode" onclick="jortModeOnOff()">Jort-mode:
+					<p id="jortModeButton" onclick="jortModeOnOff()">Jort-mode:
 						<a id="jortModeOn"> OFF</a>
 					</p>
-				
-
 			</div>
 
 			<div class="table">
@@ -58,17 +52,11 @@
 					<a id="eightCard" onclick="dealEightCard(),determineHand()">
 					<img id="eightCardJPG0">	
 					</a>
-					
-
-
-
 				</div>
 
 				<div class="yourHand"
-						
 						id="hand"> Press some buttons!
-					
-					</div>
+				</div>
 		
 			</div>
 
@@ -166,10 +154,6 @@
 
 		<script src="script.js"></script>
 		
-	
 	</body>
-
-
-	
 </html>
 
