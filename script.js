@@ -1,91 +1,20 @@
 
-let canvas = document.getElementById('myChart');
+deck = ['Sa', 'Sb', 'Sc', 'Sd', 'Se', 'Sf', 'Sg', 'Sh', 'Si', 'Sj', 'Sk', 'Sl', 'Sm', 'Ca', 'Cb', 'Cc', 'Cd', 'Ce', 'Cf', 'Cg', 'Ch', 'Ci', 'Cj', 'Ck', 'Cl', 'Cm', 'Ha', 'Hb', 'Hc', 'Hd', 'He', 'Hf', 'Hg', 'Hh', 'Hi', 'Hj', 'Hk', 'Hl', 'Hm', 'Da', 'Db', 'Dc', 'Dd', 'De', 'Df', 'Dg', 'Dh', 'Di', 'Dj', 'Dk', 'Dl', 'Dm']
 
-let data = {
-	labels: ["HC", "P", "2P", "LS", "3K", "Strt", "flsh", "FH", "4K", "SF", "RF"],
-	datasets: [
-		{
-			label: "n hands",
-			data: [],
-		}
-	]
-};
-
-setInterval(function adddata() {
-
-	myLineChart.data.datasets[0].data[0]  =  vue1.highCard;
-	myLineChart.data.datasets[0].data[1]  =  vue1.pair;
-	myLineChart.data.datasets[0].data[2]  =  vue1.twoPair;
-	myLineChart.data.datasets[0].data[3]  =  vue1.littleStraight;
-	myLineChart.data.datasets[0].data[4]  =  vue1.threeKind;
-	myLineChart.data.datasets[0].data[5]  =  vue1.straight;
-	myLineChart.data.datasets[0].data[6]  =  vue1.flush;
-	myLineChart.data.datasets[0].data[7]  =  vue1.fullHouse;
-	myLineChart.data.datasets[0].data[8]  =  vue1.fourKind;
-	myLineChart.data.datasets[0].data[9]  =  vue1.straightFlush;
-	myLineChart.data.datasets[0].data[10] =  vue1.royalFlush;
-
-	myLineChart.update();
-
-}, 50)
-
-let myLineChart = Chart.Bar(canvas, { data: data, });
-
-
-vue1 = new Vue({
-	el: '#VueEvent',
-	data: {
-		royalFlush: 0,
-		straightFlush: 0,
-		fourKind: 0,
-		fullHouse: 0,
-		flush: 0,
-		straight: 0,
-		threeKind: 0,
-		littleStraight: 0,
-		twoPair: 0,
-		pair: 0,
-		highCard: 0,
-		rounds: 0,
-		totalRounds: 0,
-
-		buttonOn: false
-	},
-
-	methods: {
-		spin: function () {
-
-			if (this.buttonOn == false) {
-				this.rounds = 0;
-				interval = setInterval(function startSpin() {
-					showAllCards();
-					determineHand();
-				}, 20);
-				this.buttonOn = true;
-			} else {
-				clearInterval(interval);
-				this.buttonOn = false;
-			}
-		}
-	}
-})
-
-
-
-deck = [
-	'Sa', 'Sb', 'Sc', 'Sd', 'Se', 'Sf', 'Sg', 'Sh', 'Si', 'Sj', 'Sk', 'Sl', 'Sm', 'Ca', 'Cb', 'Cc', 'Cd', 'Ce', 'Cf', 'Cg', 'Ch', 'Ci', 'Cj', 'Ck', 'Cl', 'Cm', 'Ha', 'Hb', 'Hc', 'Hd', 'He', 'Hf', 'Hg', 'Hh', 'Hi', 'Hj', 'Hk', 'Hl', 'Hm', 'Da', 'Db', 'Dc', 'Dd', 'De', 'Df', 'Dg', 'Dh', 'Di', 'Dj', 'Dk', 'Dl', 'Dm'
-]
-
-
-holeCards = []; flop = []; turn = []; river = []; eightCard = []; hand = [];
+holeCards = []; 
+flop = []; 
+turn = []; 
+river = []; 
+eightCard = []; 
+hand = [];
 
 eightCardOn = 'OFF'
 jortModeOn = 'OFF'
 
+// retreive and give back cards to deck array:
 
 triggerCards = (type) => {
 
-	// dump open cards to deck:
 	if (type == holeCards || type == flop || type == turn || type == river || type == eightCard) {
 		a = type.pop(); deck.push(a);
 	} if (type == holeCards || type == flop) {
@@ -96,7 +25,6 @@ triggerCards = (type) => {
 
 	deck.sort(function (a, b) { return 0.5 - Math.random() });
 
-	// get cards from deck:
 	if (type == holeCards) {
 		type = deck.splice(0, 2);
 		return type;
@@ -113,36 +41,34 @@ triggerCards = (type) => {
 	}
 };
 
+// ----
+
 eightCardOnOff = () => {
+
 	if (eightCardOn == 'OFF') {
 		eightCardOn = 'ON';
 		document.getElementById("eightCardJPG0").src = "cards/back.jpg";
-
 	} else {
 		eightCardOn = 'OFF';
 		eightCard = []
 		document.getElementById("eightCardJPG0").src = "";
-
 	}
 
 	document.getElementById("eightCardOn").innerHTML = eightCardOn;
 };
 
+
 jortModeOnOff = () => {
+
 	if (jortModeOn == 'OFF') {
 		jortModeOn = 'ON';
-		
-
 	} else {
 		jortModeOn = 'OFF';
-		
-
-
-
 	}
 
 	document.getElementById("jortModeOn").innerHTML = jortModeOn;
 };
+
 
 dealEightCard = () => {
 
@@ -203,30 +129,26 @@ showAllSharedCards = () => {
 	showTurn();
 	showRiver();
 	dealEightCard();
-	
 };
 
 
 resetDeck = () => {
 
-	vue1.data = new Array
-	//clearInterval(adddata);
+	handCount.data = []
 	myLineChart.data.datasets[0].data = [0]
-	//myLineChart.update();
 
-
-	vue1.highCard = 0
-	vue1.pair = 0
-	vue1.twoPair = 0
-	vue1.threeKind = 0
-	vue1.littleStraight = 0
-	vue1.straight = 0
-	vue1.flush = 0
-	vue1.fullHouse = 0
-	vue1.fourKind = 0
-	vue1.straightFlush = 0
-	vue1.royalFlush = 0
-	vue1.totalRounds = 0
+	handCount.highCard = 0
+	handCount.pair = 0
+	handCount.twoPair = 0
+	handCount.threeKind = 0
+	handCount.littleStraight = 0
+	handCount.straight = 0
+	handCount.flush = 0
+	handCount.fullHouse = 0
+	handCount.fourKind = 0
+	handCount.straightFlush = 0
+	handCount.royalFlush = 0
+	handCount.totalRounds = 0
 
 	a = holeCards.pop(); deck.push(a);
 	b = holeCards.pop(); deck.push(b);
@@ -248,44 +170,117 @@ resetDeck = () => {
 	document.getElementById("riverJPG0").src = "cards/back.jpg";
 
 	if(eightCardOn == 'ON') {document.getElementById("eightCardJPG0").src = "cards/back.jpg"}
-	
-
-	
 };
 
+// Bar-chart:
+
+let canvas = document.getElementById('myChart');
+
+let data = {
+	labels: ["HC", "P", "2P", "LS", "3K", "Strt", "flsh", "FH", "4K", "SF", "RF"],
+	datasets: [
+		{
+			label: "n hands",
+			data: [],
+		}
+	]
+};
+
+setInterval(function adddata() {
+
+	myLineChart.data.datasets[0].data[0]  =  handCount.highCard;
+	myLineChart.data.datasets[0].data[1]  =  handCount.pair;
+	myLineChart.data.datasets[0].data[2]  =  handCount.twoPair;
+	myLineChart.data.datasets[0].data[3]  =  handCount.littleStraight;
+	myLineChart.data.datasets[0].data[4]  =  handCount.threeKind;
+	myLineChart.data.datasets[0].data[5]  =  handCount.straight;
+	myLineChart.data.datasets[0].data[6]  =  handCount.flush;
+	myLineChart.data.datasets[0].data[7]  =  handCount.fullHouse;
+	myLineChart.data.datasets[0].data[8]  =  handCount.fourKind;
+	myLineChart.data.datasets[0].data[9]  =  handCount.straightFlush;
+	myLineChart.data.datasets[0].data[10] =  handCount.royalFlush;
+
+	myLineChart.update();
+
+}, 50)
+
+let myLineChart = Chart.Bar(canvas, { data: data, });
+
+
+// Vue component for table count
+
+handCount = new Vue({
+	el: '#VueEvent',
+	data: {
+		royalFlush: 0,
+		straightFlush: 0,
+		fourKind: 0,
+		fullHouse: 0,
+		flush: 0,
+		straight: 0,
+		threeKind: 0,
+		littleStraight: 0,
+		twoPair: 0,
+		pair: 0,
+		highCard: 0,
+		rounds: 0,
+		totalRounds: 0,
+
+		buttonOn: false
+	},
+
+	methods: {
+		spin: function () {
+
+			if (this.buttonOn == false) {
+				this.rounds = 0;
+				interval = setInterval(function startSpin() {
+					showAllCards();
+					determineHand();
+				}, 20);
+				this.buttonOn = true;
+			} else {
+				clearInterval(interval);
+				this.buttonOn = false;
+			}
+		}
+	}
+})
+
+// logic to determine value hand: 
 
 determineHand = () => {
 
 	allCards = holeCards.concat(flop, turn, river, eightCard);
 
-	spades = new Array;
-	clubs = new Array;
-	hearts = new Array;
-	diamonds = new Array;
+	spades = [];
+	clubs = [];
+	hearts = [];
+	diamonds = [];
 
-	cardSuit = new Array;
-	cardValue = new Array;
-	suit = new Array;
-	cardNumbers = new Array;
-	numbersUnique = new Array;
-	ifStraight = new Array;
-	sameValue = new Array;
+	cardSuit = [];
+	cardValue = [];
+	suit = [];
+	cardNumbers = [];
+	numbersUnique = [];
+	possibleStraightCards = [];
+	sameValue = [];
 
 
 	emptyArrays = () => {
 
-		spades = new Array;
-		clubs = new Array;
-		hearts = new Array;
-		diamonds = new Array;
+		spades = [];
+		clubs = [];
+		hearts = [];
+		diamonds = [];
 
-		cardSuit = new Array;
-		cardValue = new Array;
-		suit = new Array;
-		cardNumbers = new Array;
-		numbersUnique = new Array;
-		ifStraight = new Array;
-		sameValue = new Array;
+		cardSuit = [];
+		cardValue = [];
+		suit = [];
+		cardNumbers = [];
+		numbersUnique = [];
+		possibleStraightCards = [];
+		sameValue = [];
 	};
 
 
@@ -368,23 +363,23 @@ determineHand = () => {
 
 				for (let i = 0; i < cardNumbers.length; i++) {
 					if (cardNumbers[i + 1] == cardNumbers[i] + 1 || cardNumbers[i] - 1 == cardNumbers[i - 1]) {
-						ifStraight.push(cardNumbers[i]);
+						possibleStraightCards.push(cardNumbers[i]);
 					}
 				}
 
-				ifStraight.reverse();
+				possibleStraightCards.reverse();
 
-				if (ifStraight[0] - ifStraight[4] == 4) {
-					ifStraight.splice(5, 2);
-				} else if (ifStraight[2] - ifStraight[6] == 4) {
-					ifStraight.splice(0, 2);
-				} else if (ifStraight[1] - ifStraight[5] == 4) {
-					ifStraight.splice(0, 1); ifStraight.splice(6, 1);
+				if (possibleStraightCards[0] - possibleStraightCards[4] == 4) {
+					possibleStraightCards.splice(5, 2);
+				} else if (possibleStraightCards[2] - possibleStraightCards[6] == 4) {
+					possibleStraightCards.splice(0, 2);
+				} else if (possibleStraightCards[1] - possibleStraightCards[5] == 4) {
+					possibleStraightCards.splice(0, 1); possibleStraightCards.splice(6, 1);
 				} else {
-					ifStraight = new Array;
+					possibleStraightCards = [];
 				}
 
-				if (ifStraight.length > 4) {
+				if (possibleStraightCards.length > 4) {
 					hand = 'straightFlush';
 				} else {
 					testFourkind();
@@ -398,7 +393,10 @@ determineHand = () => {
 
 	testFourkind = () => {
 
-		emptyArrays(); split(); cardValue.sort(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort(); 
+		toInteger();
 
 		for (let i = 0; i < cardNumbers.length; i++) {
 			if (cardNumbers[i] == cardNumbers[i + 3]) {
@@ -417,7 +415,10 @@ determineHand = () => {
 
 	testFullHouse = () => {
 
-		emptyArrays(); split(); cardValue.sort().reverse(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort().reverse(); 
+		toInteger();
 
 		for (let i = 0; i < cardNumbers.length; i++) {
 			if (cardNumbers[i] == cardNumbers[i + 2]) {
@@ -451,13 +452,12 @@ determineHand = () => {
 
 	testFlush = () => {
 
-		emptyArrays(); pushSuits();
+		emptyArrays(); 
+		pushSuits();
 
 		if (suit.length == 1) {
 
 			cardValue.sort().reverse(); toInteger();
-
-			console.log(cardValue)
 
 			if (cardValue.indexOf('a') !== -1) {
 				hand = 'flushAce';
@@ -473,7 +473,10 @@ determineHand = () => {
 
 	testStraight = () => {
 
-		emptyArrays(); split(); cardValue.sort(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort(); 
+		toInteger();
 
 		if (cardNumbers.indexOf(1) !== -1
 			&& cardNumbers.indexOf(10) !== -1
@@ -491,25 +494,25 @@ determineHand = () => {
 
 			for (let i = 0; i < numbersUnique.length; i++) {
 				if (numbersUnique[i + 1] == numbersUnique[i] + 1 || numbersUnique[i] - 1 == numbersUnique[i - 1]) {
-					ifStraight.push(numbersUnique[i]);
+					possibleStraightCards.push(numbersUnique[i]);
 				}
 			}
 
-			ifStraight.reverse();
+			possibleStraightCards.reverse();
 
-			if (ifStraight[0] - ifStraight[4] == 4) {
-				ifStraight.splice(0,0);
-			} else if (ifStraight[1] - ifStraight[5] == 4) {
-				ifStraight.splice(0, 1);
-			} else if (ifStraight[2] - ifStraight[6] == 4) {
-				ifStraight.splice(0, 2);
-			} else if (ifStraight[3] -ifStraight[7] == 4) {
-				ifStraight.splice(0,3);
+			if (possibleStraightCards[0] - possibleStraightCards[4] == 4) {
+				possibleStraightCards.splice(0,0);
+			} else if (possibleStraightCards[1] - possibleStraightCards[5] == 4) {
+				possibleStraightCards.splice(0, 1);
+			} else if (possibleStraightCards[2] - possibleStraightCards[6] == 4) {
+				possibleStraightCards.splice(0, 2);
+			} else if (possibleStraightCards[3] -possibleStraightCards[7] == 4) {
+				possibleStraightCards.splice(0,3);
 			} else {
-				ifStraight = new Array;
+				possibleStraightCards = [];
 			}
 
-			if (ifStraight.length > 4) {
+			if (possibleStraightCards.length > 4) {
 				hand = 'straight';
 			} else if 
 				(jortModeOn == 'ON') {
@@ -520,10 +523,13 @@ determineHand = () => {
 		}
 	};
 
+
 	testLittleStraight=()=> {
 
-
-		emptyArrays(); split(); cardValue.sort(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort(); 
+		toInteger();
 
 		if (cardNumbers.indexOf(1) !== -1
 			&& cardNumbers.indexOf(11) !== -1
@@ -540,28 +546,28 @@ determineHand = () => {
 
 			for (let i = 0; i < numbersUnique.length; i++) {
 				if (numbersUnique[i + 1] == numbersUnique[i] + 1 || numbersUnique[i] - 1 == numbersUnique[i - 1]) {
-					ifStraight.push(numbersUnique[i]);
+					possibleStraightCards.push(numbersUnique[i]);
 				}
 			}
 
-			ifStraight.reverse();
+			possibleStraightCards.reverse();
 
-			if (ifStraight[0] - ifStraight[3] == 3) {
-				ifStraight.splice(0,0)
-			} else if (ifStraight[1] - ifStraight[4] == 3) {
-				ifStraight.splice(0, 1);
-			} else if (ifStraight[2] - ifStraight[5] == 3) {
-				ifStraight.splice(0, 2);
-			} else if (ifStraight[3] - ifStraight[6] == 3) {
-				ifStraight.splice(0,3);
-			} else if (ifStraight[4] - ifStraight[7] == 3) {
-				ifStraight.splice(0,4)
+			if (possibleStraightCards[0] - possibleStraightCards[3] == 3) {
+				possibleStraightCards.splice(0,0)
+			} else if (possibleStraightCards[1] - possibleStraightCards[4] == 3) {
+				possibleStraightCards.splice(0, 1);
+			} else if (possibleStraightCards[2] - possibleStraightCards[5] == 3) {
+				possibleStraightCards.splice(0, 2);
+			} else if (possibleStraightCards[3] - possibleStraightCards[6] == 3) {
+				possibleStraightCards.splice(0,3);
+			} else if (possibleStraightCards[4] - possibleStraightCards[7] == 3) {
+				possibleStraightCards.splice(0,4)
 			} else {
-				ifStraight = new Array;
+				possibleStraightCards = [];
 			}
 
 
-			if (ifStraight.length > 3) {
+			if (possibleStraightCards.length > 3) {
 				hand = 'littleStraight'; 
 			} else {
 				testThreeKind();
@@ -570,9 +576,13 @@ determineHand = () => {
 
 	};
 
+
 	testThreeKind = () => {
 
-		emptyArrays(); split(); cardValue.sort().reverse(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort().reverse(); 
+		toInteger();
 
 		for (let i = 0; i < cardNumbers.length; i++) {
 			if (cardNumbers[i] == cardNumbers[i + 2]) {
@@ -590,7 +600,10 @@ determineHand = () => {
 
 	testTwoPair = () => {
 
-		emptyArrays(); split(); cardValue.sort().reverse(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort().reverse(); 
+		toInteger();
 
 		for (let i = 0; i < cardNumbers.length; i++) {
 			if (cardNumbers[i] == cardNumbers[i + 1]) {
@@ -616,7 +629,9 @@ determineHand = () => {
 
 	testPocketPair = () => {
 
-		emptyArrays(); split(); toInteger();
+		emptyArrays(); 
+		split(); 
+		toInteger();
 
 		if (cardNumbers[0] == cardNumbers[1]) {
 			hand = 'pocketPair';
@@ -628,7 +643,10 @@ determineHand = () => {
 
 	testPair = () => {
 
-		emptyArrays(); split(); toInteger(); cardNumbers.sort();
+		emptyArrays(); 
+		split(); 
+		toInteger(); 
+		cardNumbers.sort();
 
 		for (let i = 0; i < cardNumbers.length; i++) {
 			if (cardNumbers[i] == cardNumbers[i + 1]) {
@@ -646,7 +664,10 @@ determineHand = () => {
 
 	testHighCard = () => {
 
-		emptyArrays(); split(); cardValue.sort().reverse(); toInteger();
+		emptyArrays(); 
+		split(); 
+		cardValue.sort().reverse(); 
+		toInteger();
 
 		if (cardNumbers.indexOf(1) !== -1) {
 			hand = 'highCardAce';
@@ -658,10 +679,7 @@ determineHand = () => {
 
 	testStraightFlush();
 
-	displayHand = new Array;
-
-	fiftyHandsArr = new Array;
-
+	displayHand = [];
 
 	let a = cardNumbers.indexOf(1); if (a > -1) { cardNumbers[a] = 'Ace' }
 	let b = cardNumbers.indexOf(11); if (b > -1) { cardNumbers[b] = 'Jack' }
@@ -673,10 +691,10 @@ determineHand = () => {
 	let g = sameValue.indexOf(12); if (g > -1) { sameValue[g] = 'Queen' }
 	let h = sameValue.indexOf(13); if (h > -1) { sameValue[h] = 'King' }
 
-	let i = ifStraight.indexOf(1); if (i > -1) { ifStraight[i] = 'Ace' }
-	let j = ifStraight.indexOf(11); if (j > -1) { ifStraight[j] = 'Jack' }
-	let k = ifStraight.indexOf(12); if (k > -1) { ifStraight[k] = 'Queen' }
-	let l = ifStraight.indexOf(13); if (l > -1) { ifStraight[l] = 'King' }
+	let i = possibleStraightCards.indexOf(1); if (i > -1) { possibleStraightCards[i] = 'Ace' }
+	let j = possibleStraightCards.indexOf(11); if (j > -1) { possibleStraightCards[j] = 'Jack' }
+	let k = possibleStraightCards.indexOf(12); if (k > -1) { possibleStraightCards[k] = 'Queen' }
+	let l = possibleStraightCards.indexOf(13); if (l > -1) { possibleStraightCards[l] = 'King' }
 
 	let m = cardSuit.indexOf('S'); if (m > -1) { cardSuit[m] = 'Spades' }
 	let n = cardSuit.indexOf('C'); if (n > -1) { cardSuit[n] = 'Clubs' }
@@ -687,122 +705,105 @@ determineHand = () => {
 	switch (hand) {
 		case 'royalFlush':
 			displayHand = `!! A royal flush of ${suit} !!`
-			vue1.royalFlush++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('royalFlush')
+			handCount.royalFlush++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'straightFlush':
-			displayHand = `!! A straight flush of ${suit}, ${ifStraight[0]} high !!`
-			vue1.straightFlush++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('straightFlush')
+			displayHand = `!! A straight flush of ${suit}, ${possibleStraightCards[0]} high !!`
+			handCount.straightFlush++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'fourKind':
 			displayHand = `!! Four-of-a-kind ${sameValue[0]}'s !!`
-			vue1.fourKind++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('fourKind')
+			handCount.fourKind++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'fullHouse':
 			displayHand = `!! A full house, ${sameValue[0]}'s over ${sameValue[1]}'s !!`
-			vue1.fullHouse++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('fullHouse')
+			handCount.fullHouse++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'flushAce':
 			displayHand = `!! A Flush of ${cardSuit[0]}, Ace high !!`
-			vue1.flush++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('flush')
+			handCount.flush++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'flush':
 			displayHand = `!! A Flush of ${cardSuit[0]}, ${cardNumbers[0]} high !!`
-			vue1.flush++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('flush')
+			handCount.flush++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'straightAce':
 			displayHand = `!! A Straight, Ace high !!`
-			vue1.straight++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('straight')
+			handCount.straight++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'straight':
-			displayHand = `!! A Straight, ${ifStraight[0]} high !!`
-			vue1.straight++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('straight')
+			displayHand = `!! A Straight, ${possibleStraightCards[0]} high !!`
+			handCount.straight++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'littleStraightAce':
 			displayHand = `!! A Little Straight (Jort-Straight), Ace high !!`
-			vue1.littleStraight++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('littleStraight')
+			handCount.littleStraight++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'littleStraight':
-			displayHand = `!! A Little Straight (Jort-Straight), ${ifStraight[0]} high !!`
-			vue1.littleStraight++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('littleStraight')
+			displayHand = `!! A Little Straight (Jort-Straight), ${possibleStraightCards[0]} high !!`
+			handCount.littleStraight++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'threeKind':
 			displayHand = `!! Three-of-a-kind ${sameValue[0]}'s !!`
-			vue1.threeKind++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('threeKind')
+			handCount.threeKind++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'twoPairAce':
 			displayHand = `!! Two pair Ace's and ${sameValue[0]}'s !!`
-			vue1.twoPair++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('twoPair')
+			handCount.twoPair++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'twoPair':
 			displayHand = `!! Two pair ${sameValue[0]}'s and ${sameValue[1]}'s !!`
-			vue1.twoPair++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('twoPair')
+			handCount.twoPair++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'pocketPair':
 			displayHand = `!! A pocketpair of ${cardNumbers[0]}'s !!`
-			vue1.pair++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('pair')
+			handCount.pair++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'pair':
 			displayHand = `!! A pair of ${sameValue[0]}'s !!`
-			vue1.pair++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('pair')
+			handCount.pair++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'highCard':
 			displayHand = `!! High card ${cardNumbers[0]} !!`
-			vue1.highCard++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('highCard')
+			handCount.highCard++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 		case 'highCardAce':
 			displayHand = `!! High card Ace !!`
-			vue1.highCard++
-			vue1.totalRounds++
-			vue1.rounds++
-			fiftyHandsArr.push('highCard')
+			handCount.highCard++
+			handCount.totalRounds++
+			handCount.rounds++
 			break;
 	}
 
