@@ -79,7 +79,7 @@ dealEightCard = () => {
 	} else {
 		document.getElementById("eightCardJPG0").src = ""
 	}
-}
+};
 
 dealHoleCards = () => {
 
@@ -201,7 +201,6 @@ setInterval(function adddata() {
 	myLineChart.data.datasets[0].data[10] =  handCount.royalFlush;
 
 	myLineChart.update();
-
 }, 50)
 
 let myLineChart = Chart.Bar(canvas, { data: data, });
@@ -245,7 +244,7 @@ handCount = new Vue({
 			}
 		}
 	}
-})
+});
 
 // logic to determine value hand: 
 
