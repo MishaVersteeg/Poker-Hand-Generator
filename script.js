@@ -70,17 +70,6 @@ jortModeOnOff = () => {
 };
 
 
-dealEightCard = () => {
-
-	if (eightCardOn == 'ON') {
-		eightCard = triggerCards(eightCard);
-
-		document.getElementById("eightCardJPG0").src = "cards/" + eightCard[0] + ".jpg";
-	} else {
-		document.getElementById("eightCardJPG0").src = ""
-	}
-};
-
 dealHoleCards = () => {
 
 	holeCards = triggerCards(holeCards);
@@ -116,6 +105,18 @@ showRiver = () => {
 };
 
 
+showEightCard = () => {
+
+	if (eightCardOn == 'ON') {
+		eightCard = triggerCards(eightCard);
+
+		document.getElementById("eightCardJPG0").src = "cards/" + eightCard[0] + ".jpg";
+	} else {
+		document.getElementById("eightCardJPG0").src = ""
+	}
+};
+
+
 showAllCards = () => {
 
 	dealHoleCards();
@@ -128,7 +129,7 @@ showAllSharedCards = () => {
 	showFlop();
 	showTurn();
 	showRiver();
-	dealEightCard();
+	showEightCard();
 };
 
 
