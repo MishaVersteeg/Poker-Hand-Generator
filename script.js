@@ -286,7 +286,6 @@ determineHand = () => {
 		sameValue = [];
 	};
 
-	// If a hand consists of >4 equal suits, 
 	pushSameSuits = () => { 
 
 		spades = allCards.filter((suit) => suit.startsWith('S'));
