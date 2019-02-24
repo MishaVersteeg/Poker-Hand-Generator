@@ -84,7 +84,7 @@
 
 			<div id="VueEvent">
 
-				<p @click = spin >on/off  Massive Spin!!</p>
+				<p @click="spin()">Massive Spin: {{ buttonOn ? 'ON' : 'OFF' }}</p>
 
 				<table >		
 					<tr>
@@ -98,54 +98,54 @@
 					<tr>		
 					<td>Straight flush</td>
 					<td>{{straightFlush}}</td> 
-					<tr>			
+					</tr>			
 					<tr>	
 					<td>Four-of-a-kind</td>
 					<td>{{fourKind}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>Full house</td>
 					<td>{{fullHouse}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>Flush</td>
 					<td>{{flush}}</td> 
-					<tr>	
+					</tr>	
 					<tr>		
 					<td>Straight</td>
 					<td>{{straight}}</td> 
-					<tr>
+					</tr>
 							<tr>		
 							<td>(Little straight)</td>
 							<td>{{littleStraight}}</td> 
-							<tr>		
+							</tr>		
 					<tr>		
 					<td>Three-of-a-kind</td>
 					<td>{{threeKind}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>Two pair</td>
 					<td>{{twoPair}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>Pair</td>
 					<td>{{pair}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>High Card</td>
 					<td>{{highCard}}</td> 
-					<tr>		
+					</tr>		
 					<tr>		
 					<td  colspan="2">________________</td>
-					<tr>		
+					</tr>		
 					<tr>		
 					<td>rounds</td>
 					<td>{{rounds}}</td> 
-					<tr>
+					</tr>
 					<tr>		
 					<td>total rounds</td>
 					<td>{{totalRounds}}</td> 
-					<tr>
+					</tr>
 				</table>
 						
 			</div>
