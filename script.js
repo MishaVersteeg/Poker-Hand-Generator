@@ -13,31 +13,33 @@ let jortModeOn = 'OFF'
 
 // retreive and give back cards to deck array:
 
-triggerCards = (type) => {
+triggerCards = (arrayType) => {
+	deck = deck.concat(arrayType)
+	arrayType.length = 0
 
-	if (type == holeCards || type == flop || type == turn || type == river || type == eightCard) {
-		a = type.pop(); deck.push(a);
-	} if (type == holeCards || type == flop) {
-		a = type.pop(); deck.push(a);
-	} if (type == flop) {
-		a = type.pop(); deck.push(a);
-	}
+	// if (arrayType == holeCards || arrayType == flop || arrayType == turn || arrayType == river || arrayType == eightCard) {
+	// 	a = arrayType.pop(); deck.push(a);
+	// } if (arrayType == holeCards || arrayType == flop) {
+	// 	a = arrayType.pop(); deck.push(a);
+	// } if (arrayType == flop) {
+	// 	a = arrayType.pop(); deck.push(a);
+	// }
 
 	deck.sort(function (a, b) { return 0.5 - Math.random() });
 
-	if (type == holeCards) {
-		type = deck.splice(0, 2);
-		return type;
+	if (arrayType == holeCards) {
+		arrayType = deck.splice(0, 2);
+		return arrayType;
 	}
 
-	if (type == flop) {
-		type = deck.splice(0, 3);
-		return type;
+	if (arrayType == flop) {
+		arrayType = deck.splice(0, 3);
+		return arrayType;
 	}
 
-	if (type == turn || type == river || type == eightCard) {
-		type = deck.splice(0, 1);
-		return type;
+	if (arrayType == turn || arrayType == river || arrayType == eightCard) {
+		arrayType = deck.splice(0, 1);
+		return arrayType;
 	}
 };
 
@@ -151,13 +153,13 @@ resetDeck = () => {
 	handCount.royalFlush = 0
 	handCount.totalRounds = 0
 
-	a = holeCards.pop(); deck.push(a);
-	b = holeCards.pop(); deck.push(b);
-	c = flop.pop(); deck.push(c);
-	d = flop.pop(); deck.push(d);
-	e = flop.pop(); deck.push(e);
-	f = turn.pop(); deck.push(f);
-	g = river.pop(); deck.push(g);
+	deck.push(holeCards.pop());
+	deck.push(holeCards.pop());
+	deck.push(flop.pop());
+	deck.push(flop.pop());
+	deck.push(flop.pop());
+	deck.push(turn.pop());
+	deck.push(river.pop());
 
 	displayHand = "Press some buttons!"
 	document.getElementById("hand").innerHTML = displayHand;
@@ -249,7 +251,8 @@ handCount = new Vue({
 
 // logic to determine value hand: 
 
-determineHand = () => {
+
+determineHand = () => { 
 
 	let allCards = holeCards.concat(flop, turn, river, eightCard);
 
@@ -283,8 +286,8 @@ determineHand = () => {
 		sameValue = [];
 	};
 
-
-	pushSuits = () => {
+	// If a hand consists of >4 equal suits, 
+	pushSameSuits = () => { 
 
 		spades = allCards.filter((suit) => suit.startsWith('S'));
 		clubs = allCards.filter((suit) => suit.startsWith('C'));
@@ -346,7 +349,7 @@ determineHand = () => {
 
 	testStraightFlush = () => {
 
-		pushSuits();
+		pushSameSuits();
 
 		if (cardSuit.length > 4) {
 
@@ -453,7 +456,7 @@ determineHand = () => {
 	testFlush = () => {
 
 		emptyArrays(); 
-		pushSuits();
+		pushSameSuits();
 
 		if (suit.length == 1) {
 
